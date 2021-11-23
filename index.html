@@ -41,6 +41,15 @@
           <span class="emailErr error"></span>
         </label>
       </p>
+      <!-- Response-->
+      <p>Are you attending this event?</p>
+        <input type="radio" id="attending" name="response" value="Attending" checked /> <label for="attending">Attending</label><br />
+        <input type="radio" id="maybe" name="response" value="Maybe" /> <label for="maybe">Maybe</label><br />
+        <input type="radio" id="not_attending" name="response" value="Not Attending" /> <label for="not_attending">Not Attending</label> <br /><br />
+      <!-- Guest Count -->
+      <label for="guestCount">Guest Count:</label><br />
+      <input type="text" id="guestCount" name="Guest Count" value="" />
+      <br /><br />
 
       <button type="submit">Submit</button>
     </form>
@@ -48,6 +57,8 @@
       const form = document.getElementById("eventForm");
       const email = document.getElementById("mail");
       const emailError = document.querySelector("#mail + span.emailErr");
+      const attending = document.getElementById("attending");
+      const guestCount = document.getElementById("guestCount");
 
       const emailRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -64,6 +75,23 @@
       email.addEventListener("focusout", function () {
         validateEmail();
       });
+
+      //Response
+      const responseOptions = document.querySelectorAll('input[name="response"]');
+
+      for (let i = 0; i < responseOptions.length; i++) {
+        responseOptions[i].addEventListener("click", function (event) {
+          let response = event.target.value;
+
+          if (response != "Not Attending") {
+            guestCount.disabled = false;
+            guestCount.value = "";
+          } else {
+            guestCount.disabled = true;
+            guestCount.value = 0;
+          }
+        });
+      }
     </script>
   </body>
 </html>
