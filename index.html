@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Registration Form</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 0;
+        margin: 0;
+      }
+
+      form {
+        margin: 2rem;
+      }
+
+      input {
+        border: 1px solid #333;
+        margin: 0;
+      }
+
+      .error {
+        padding: 0.3em;
+        font-size: 0.75rem;
+        color: #f74040;
+        border-radius: 0 0 5px 5px;
+        box-sizing: border-box;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="eventForm">
+      <!-- Email -->
+      <p>
+        <label for="mail">
+          <span>Email address:</span><br />
+          <input type="text" id="mail" name="mail" />
+          <span class="emailErr error"></span>
+        </label>
+      </p>
+
+      <button type="submit">Submit</button>
+    </form>
+    <script>
+      const form = document.getElementById("eventForm");
+      const email = document.getElementById("mail");
+      const emailError = document.querySelector("#mail + span.emailErr");
+
+      const emailRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+      function validateEmail() {
+        const test = emailRegExp.test(email.value);
+
+        if (!test) {
+          emailError.textContent = "Please enter valid email address!";
+        } else {
+          emailError.textContent = "";
+        }
+      }
+
+      email.addEventListener("focusout", function () {
+        validateEmail();
+      });
+    </script>
+  </body>
+</html>
