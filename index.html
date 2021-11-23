@@ -61,6 +61,8 @@
       const attending = document.getElementById("attending");
       const guestCount = document.getElementById("guestCount");
       const guestCountError = document.querySelector("#guestCount + span.guestCountErr");
+      let emailValid = false;
+      let guestCountValid = false;
 
       const emailRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -71,6 +73,7 @@
           emailError.textContent = "Please enter valid email address!";
         } else {
           emailError.textContent = "";
+          emailValid = true;
         }
       }
 
@@ -99,13 +102,26 @@
       function validateGuestCount(count) {
         if (count != "" && count >= 0 && count <= 3) {
           guestCountError.textContent = "";
+          guestCountValid = true;
         } else {
           guestCountError.textContent = "Number of guests allowed are 0 to 3";
+          guestCountValid = false;
         }
       }
 
       guestCount.addEventListener("input", function () {
         validateGuestCount(guestCount.value);
+      });
+
+      //Form submission
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        validateEmail();
+
+        validateGuestCount(guestCount.value);
+        if (emailValid && guestCountValid) {
+          form.submit();
+        }
       });
     </script>
   </body>
