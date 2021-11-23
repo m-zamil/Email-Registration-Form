@@ -49,6 +49,7 @@
       <!-- Guest Count -->
       <label for="guestCount">Guest Count:</label><br />
       <input type="text" id="guestCount" name="Guest Count" value="" />
+      <span class="guestCountErr error"></span>
       <br /><br />
 
       <button type="submit">Submit</button>
@@ -59,6 +60,7 @@
       const emailError = document.querySelector("#mail + span.emailErr");
       const attending = document.getElementById("attending");
       const guestCount = document.getElementById("guestCount");
+      const guestCountError = document.querySelector("#guestCount + span.guestCountErr");
 
       const emailRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -92,6 +94,19 @@
           }
         });
       }
+      //validate guest count
+
+      function validateGuestCount(count) {
+        if (count != "" && count >= 0 && count <= 3) {
+          guestCountError.textContent = "";
+        } else {
+          guestCountError.textContent = "Number of guests allowed are 0 to 3";
+        }
+      }
+
+      guestCount.addEventListener("input", function () {
+        validateGuestCount(guestCount.value);
+      });
     </script>
   </body>
 </html>
